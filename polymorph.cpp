@@ -17,13 +17,14 @@
 
 #include "Monster.h"
 #include "Zombie.h"
-
+#include "Ninja.h"
+#include "Yeti.h"
 
 int main()
 {
 
-    Zombie z("Mike");
-
+    Yeti z("Mike");
 
     return 0;
 }
+

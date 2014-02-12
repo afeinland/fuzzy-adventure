@@ -31,3 +31,4 @@ void Zombie::attack()
 Zombie::~Zombie()
 {
 }
+

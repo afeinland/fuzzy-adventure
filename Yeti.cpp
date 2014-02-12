@@ -17,17 +17,19 @@
 
 #include <iostream>
 #include "Monster.h"
+#include "Yeti.h"
 
-Monster::Monster(char * n)
-:name(n)
+Yeti::Yeti(char * name)
+:Monster(name), strength(0)
 {}
 
-void Monster::attack()
+void Yeti::attack()
 {
-    std::cout << "Monster's attack" << std::endl;
+    std::cout << "Yeti Attack!" << std::endl;
 }
 
-Monster::~Monster()
+Yeti::~Yeti()
 {
 }
+
 

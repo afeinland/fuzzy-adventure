@@ -14,6 +14,7 @@
 //
 // I hereby certify that the code in this file 
 // is ENTIRELY my own original work.
+
 #include <string>
 #include <iostream>
 
@@ -34,3 +35,4 @@ public:
 };
 
 #endif /* MONSTER_H */
+

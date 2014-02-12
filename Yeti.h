@@ -18,16 +18,23 @@
 #include <iostream>
 #include "Monster.h"
 
-Monster::Monster(char * n)
-:name(n)
-{}
+#ifndef YETI_H
+#define YETI_H
 
-void Monster::attack()
+class Yeti: Monster
 {
-    std::cout << "Monster's attack" << std::endl;
-}
+    int strength;
 
-Monster::~Monster()
-{
-}
+public:
+
+    Yeti(char * name = "");
+
+    void attack();
+
+    ~Yeti();
+};
+
+#endif /* Yeti_H */
+
+
 
