@@ -20,10 +20,35 @@
 #include "Ninja.h"
 #include "Yeti.h"
 
+using std::cout;
+using std::endl;
+
+const int NUM_MON = 6;
+
+void addMonsters(Monster ** m)
+{
+    m[0] = new Zombie("ZombieA");
+    m[1] = new Zombie("ZombieB");
+    m[2] = new Ninja("NinjaA");
+    m[3] = new Ninja("NinjaB");
+    m[4] = new Yeti("YetiA");
+    m[5] = new Yeti("YetiB");
+}
+
+void monstersAttack(Monster ** m)
+{
+    for(int i = 0; i < NUM_MON; ++i)
+        m[i] -> attack();
+}
+
+
 int main()
 {
 
-    Yeti z("Mike");
+    Monster **monsters = new Monster*[NUM_MON];
+
+
+    addMonsters(monsters);
 
     return 0;
 }
