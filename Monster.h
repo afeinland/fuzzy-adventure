@@ -14,17 +14,23 @@
 //
 // I hereby certify that the code in this file 
 // is ENTIRELY my own original work.
+#include <string>
+#include <iostream>
+
+#ifndef MONSTER_H
+#define MONSTER_H
 
 class Monster
 {
-    string name;
+    std::string name;
 
 public:
 
-    Monster(char * n);
+    Monster(char * n = "");
 
     virtual void attack();
 
-    virtual ~Monster();
+    virtual ~Monster() = 0;
 };
 
+#endif /* MONSTER_H */

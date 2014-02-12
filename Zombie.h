@@ -13,19 +13,26 @@
 // Assignment <HW5>
 //
 // I hereby certify that the code in this file 
-#include <iostream>
+// is ENTIRELY my own original work.
 
+#include <string>
+#include <iostream>
 #include "Monster.h"
 
-Monster::Monster(char * n)
-:name(n)
-{}
+#ifndef ZOMBIE_H
+#define ZOMBIE_H
 
-void Monster::attack()
+class Zombie: Monster
 {
-    std::cout << "Monster's attack" << std::endl;
-}
+    int brainLevel;
 
-Monster::~Monster()
-{
-}
+public:
+    Zombie(char * name = "");
+
+    void attack();
+
+    ~Zombie();
+
+};
+
+#endif /* ZOMBIE_H */
