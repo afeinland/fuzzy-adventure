@@ -24,7 +24,7 @@ Monster::Monster(char * n)
 
 void Monster::attack()
 {
-    std::cout << "Monster's attack" << std::endl;
+    std::cout << "Hello, I am a Monster " << std::endl;
 }
 
 Monster::~Monster()

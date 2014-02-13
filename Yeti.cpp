@@ -19,13 +19,14 @@
 #include "Monster.h"
 #include "Yeti.h"
 
-Yeti::Yeti(char * name)
-:Monster(name), strength(0)
+Yeti::Yeti(char * name, int s)
+:Monster(name), strength(s)
 {}
 
 void Yeti::attack()
 {
-    std::cout << "Yeti Attack!" << std::endl;
+    std::cout << "Yeti " << name << " whacked you upside the head! "
+        << strength << " health lost."  << std::endl;
 }
 
 Yeti::~Yeti()

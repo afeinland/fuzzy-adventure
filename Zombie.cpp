@@ -19,13 +19,15 @@
 #include "Zombie.h"
 
 
-Zombie::Zombie(char * name)
-:Monster(name), brainLevel(0)
+Zombie::Zombie(char * name, int bL)
+:Monster(name), brainLevel(bL)
 {}
 
 void Zombie::attack()
 {
-    std::cout << "ZOMBIE ATTACK" << std::endl;
+    double healthLost = (double)brainLevel * 1.5;
+    std::cout << "Zombie " << name << " bit your arm off! "
+        << healthLost << " health lost." << std::endl;
 }
 
 Zombie::~Zombie()

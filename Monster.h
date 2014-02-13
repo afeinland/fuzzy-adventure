@@ -23,6 +23,7 @@
 
 class Monster
 {
+protected:
     std::string name;
 
 public:

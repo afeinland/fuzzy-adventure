@@ -15,6 +15,7 @@
 // I hereby certify that the code in this file 
 // is ENTIRELY my own original work.
 
+#include <vector>
 #include "Monster.h"
 #include "Zombie.h"
 #include "Ninja.h"
@@ -22,33 +23,31 @@
 
 using std::cout;
 using std::endl;
+using std::vector;
 
-const int NUM_MON = 6;
 
-void addMonsters(Monster ** m)
+void addMonsters(vector<Monster*> & m)
 {
-    m[0] = new Zombie("ZombieA");
-    m[1] = new Zombie("ZombieB");
-    m[2] = new Ninja("NinjaA");
-    m[3] = new Ninja("NinjaB");
-    m[4] = new Yeti("YetiA");
-    m[5] = new Yeti("YetiB");
+    m.push_back( new Zombie("Zafirah", 2) );
+    m.push_back( new Yeti("Yannis", 9) );
+    m.push_back( new Ninja("Noburu", 23) );
 }
 
-void monstersAttack(Monster ** m)
+void monstersAttack(vector<Monster*> & m)
 {
-    for(int i = 0; i < NUM_MON; ++i)
-        m[i] -> attack();
+    for(unsigned i = 0; i < m.size(); ++i)
+        m.at(i) -> attack();
 }
 
 
 int main()
 {
 
-    Monster **monsters = new Monster*[NUM_MON];
-
+    vector<Monster*> monsters;
 
     addMonsters(monsters);
+
+    monstersAttack(monsters);
 
     return 0;
 }

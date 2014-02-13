@@ -22,12 +22,12 @@
 #ifndef ZOMBIE_H
 #define ZOMBIE_H
 
-class Zombie: Monster
+class Zombie: public Monster
 {
     int brainLevel;
 
 public:
-    Zombie(char * name = "");
+    Zombie(char * name = "", int bL = 0);
 
     void attack();
 

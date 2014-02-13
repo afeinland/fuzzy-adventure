@@ -19,13 +19,15 @@
 #include "Monster.h"
 #include "Ninja.h"
 
-Ninja::Ninja(char * name)
-:Monster(name), agility(0)
+Ninja::Ninja(char * name, int a)
+:Monster(name), agility(a)
 {}
 
 void Ninja::attack()
 {
-    std::cout << "Ninja Attack!" << std::endl;
+    double healthLost = (double)agility * 0.25;
+    std::cout << "Ninja " << name << " landed a throwing star in your neck! "
+        << healthLost << " health lost." << std::endl;
 }
 
 Ninja::~Ninja()

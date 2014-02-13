@@ -21,13 +21,13 @@
 #ifndef YETI_H
 #define YETI_H
 
-class Yeti: Monster
+class Yeti: public Monster
 {
     int strength;
 
 public:
 
-    Yeti(char * name = "");
+    Yeti(char * name = "", int s = 0);
 
     void attack();
 

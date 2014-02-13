@@ -21,13 +21,13 @@
 #ifndef NINJA_H
 #define NINJA_H
 
-class Ninja: Monster
+class Ninja: public Monster
 {
     int agility;
 
 public:
 
-    Ninja(char * name = "");
+    Ninja(char * name = "", int a = 0);
 
     void attack();
 
