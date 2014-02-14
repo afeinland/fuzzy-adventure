@@ -14,11 +14,14 @@
 //
 // I hereby certify that the code in this file 
 // is ENTIRELY my own original work.
+
 #include <iostream>
 #include <unistd.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <csignal>
 
 using namespace std;
 
@@ -56,20 +59,37 @@ int execute_input(char *argv[])
             break;
 
         case 0: //child
-            dup2(2, 1);
             execvp(argv[0], argv);
             cerr << "Error execvp program" << endl;
-            //exec program
             break;
 
         default: //parent
-        wait(pid);
+        wait((void*)pid);
 
     }
 
     return 0;
 }
 
+void childReaper(int sig)
+{
+    int status;
+    signal(SIGCHLD, childReaper);
+    while( waitpid(-1, &status, WNOHANG) >= 0 )
+        continue;
+}
+
+void testexec()
+{
+    char *argv[64];
+    argv[0] = "tee";
+    argv[1] = "outfile";
+    argv[2] = NULL;
+
+    execvp(argv[0], argv);
+
+
+}
 
 
 int main()
@@ -77,6 +97,9 @@ int main()
     char buf[1024];
     char * argv[512];
     int argc = 0;
+
+    signal(SIGCHLD, childReaper);
+
     while(1)
     {
         print_prompt();
@@ -84,6 +107,7 @@ int main()
         parse_input(argc, buf, argv);
         execute_input(argv); //execute on input
     }
+
 
 
     return 0;

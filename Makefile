@@ -15,9 +15,9 @@
 # I hereby certify that the code in this file 
 # is ENTIRELY my own original work.
 
-CFLAGS = -ggdb -Wall -Werror
+CFLAGS = -ggdb -Wall
 
-all: polymorph.out
+all: polymorph.out my_shell
 
 polymorph.out: polymorph.o Monster.o Zombie.o Ninja.o Yeti.o
 	g++ $(CFLAGS) -o polymorph.out polymorph.o Monster.o Zombie.o Ninja.o Yeti.o
@@ -38,8 +38,12 @@ Yeti.o: Yeti.h Yeti.cpp
 	g++ $(CFLAGS) -c Yeti.cpp
 
 
+my_shell: my_shell.cpp
+	g++ $(CFLAGS) -o my_shell my_shell.cpp
+
+
 clean:
-	rm polymorph.out polymorph.o Monster.o Zombie.o Ninja.o Yeti.o
+	rm polymorph.out polymorph.o Monster.o Zombie.o Ninja.o Yeti.o my_shell
 
 
 
