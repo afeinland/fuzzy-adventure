@@ -22,12 +22,21 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <csignal>
+#include <cerrno>
 
 using namespace std;
 
-void print_prompt()
+void printP rompt()
 {
     cout << "\nmy_shell% " << flush;
+}
+
+void childReaper(int sig)
+{
+    int status;
+    signal(SIGCHLD, childReaper);
+    while( waitpid(-1, &status, WNOHANG) >= 0 )
+        continue;
 }
 
 void parse_input(int & argc, char *buf, char *argv[])
@@ -45,9 +54,76 @@ void parse_input(int & argc, char *buf, char *argv[])
 }
 
 
-int execute_input(char *argv[])
+
+
+//test: tee outfile < infile - dup infile with stdin, b/c "<infile"
+void testexec()
 {
-    int fd = open(argv[1], O_CREAT, S_IRUSR | S_IWUSR); //open file for output
+    char * argv[64];
+    char * infile = "infile.txt";
+    argv[0] = "tee";
+    argv[1] = "outfile";
+    argv[2] = NULL;
+    int fd_in;
+    if( (fd_in = open(infile, O_RDONLY, S_IRUSR)) == -1 )
+        cout << "Error opening input file: " << errno << endl;
+
+    cout << "fd_in: " << fd_in << endl;
+    if( dup2(fd_in, 0)  ==  -1 )
+        cout << "Error dup2(fd_in, 0) " << errno << endl;
+    cout << "fd_in: " << fd_in << endl;
+    close(fd_in);
+    cout << "fd_in: " << fd_in << endl;
+
+    execvp(argv[0], argv);
+}
+
+// test: tee outfile < infile > outfile
+//      dup infile with stdin b/c "<infile"
+//      dub outilfe with stdout b/c ">outifle"
+void testexec2()
+{
+    char * argv[64];
+    char * infile = "infile.txt";
+    char * outfile = "outfile";
+    argv[0] = "tee";
+    argv[1] = "outfile";
+    argv[2] = NULL;
+
+    int fd_in, fd_out;
+    if( (fd_in = open(infile, O_RDONLY, S_IRUSR)) == -1 )
+        cout << "Error opening input file: " << errno << endl;
+    if( (fd_out = open(outfile, O_WRONLY, S_IWUSR)) == -1 )
+        cout << "Error opening output file: " << errno << endl;
+
+    if( dup2(fd_in, 0) == -1 )
+        cout << "Error dup2(fd_in, 0) " << errno << endl;
+
+    if( dup2(fd_out, 1) == -1 )
+        cout << "Error dup2(fd_out, 1) " << errno << endl;
+
+   close(fd_in);
+   close(fd_out);
+
+    execvp(argv[0], argv);
+
+}
+
+void parse_input( char * argv[64], char * buf)
+{
+
+
+}
+
+
+int executeInput(char *buf)
+{
+    char * arvg[64];
+    int argc = 0;
+
+    parse_input(argv, buf);
+
+
 
     int pid = fork();
 
@@ -71,41 +147,17 @@ int execute_input(char *argv[])
     return 0;
 }
 
-void childReaper(int sig)
-{
-    int status;
-    signal(SIGCHLD, childReaper);
-    while( waitpid(-1, &status, WNOHANG) >= 0 )
-        continue;
-}
-
-void testexec()
-{
-    char *argv[64];
-    argv[0] = "tee";
-    argv[1] = "outfile";
-    argv[2] = NULL;
-
-    execvp(argv[0], argv);
-
-
-}
-
-
 int main()
 {
     char buf[1024];
-    char * argv[512];
-    int argc = 0;
 
     signal(SIGCHLD, childReaper);
 
     while(1)
     {
-        print_prompt();
-        cin.getline(buf, 1023, '\n'); //get input
-        parse_input(argc, buf, argv);
-        execute_input(argv); //execute on input
+        printPrompt();
+        cin.getline(buf, 1023); //get input
+        executeInput(buf); //execute on input
     }
 
 
