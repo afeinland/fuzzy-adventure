@@ -45,5 +45,9 @@ my_shell: my_shell.cpp
 clean:
 	rm polymorph.out polymorph.o Monster.o Zombie.o Ninja.o Yeti.o my_shell
 
+strip:
+	strip -S my_shell
 
+print:
+	ls my_shell.* > my_shell_Files.pdf
 

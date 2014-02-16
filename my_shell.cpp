@@ -113,6 +113,18 @@ void parse_input( char * argv[64], char * buf)
 {
 
 
+
+    for(int i = 0; buf[i] != '\0'; ++i)
+    {
+
+
+
+
+
+
+    }
+
+
 }
 
 
